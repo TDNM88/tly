@@ -13,9 +13,16 @@ interface ChatbotConfig {
 interface Chatbot {
   id: string;
   config: ChatbotConfig;
-  messages: { role: 'user' | 'assistant'; content: string; files?: File[] }[];
-  profileImage?: string;
+  messages: Message[];
+  profileImage: string;
 }
+
+type Message = {
+  role: 'user' | 'assistant';
+  content: string;
+  files?: File[];
+}
+
 
 const defaultChatbots: Chatbot[] = [
   {
@@ -193,15 +200,15 @@ const App: React.FC = () => {
   
     const updatedChatbots = chatbots.map((chatbot) => {
       if (chatbot.id === selectedChatbotId) {
-        const updatedMessages = [
+        const updatedMessages: Message[] = [
           ...chatbot.messages,
           { 
-            role: 'user' as const, 
+            role: 'user', 
             content: newMessage, 
             files: selectedFiles 
           },
           { 
-            role: 'assistant' as const, 
+            role: 'assistant', 
             content: assistantResponse 
           }
         ];
