@@ -1,8 +1,12 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import Home from './components/home'
-import ChatbotManager from './components/chatbot-manager'
-import ChatInterface from './components/chat-interface'
-import Navigation from './components/navigation'
+import Home from '/src/components/home'
+import ChatbotManager from '/src/components/chatbot-manager'
+import ChatInterface from '/src/components/chat-interface'
+import { Button } from '/src/components/ui/button';
+
+<Button variant="default" size="sm">
+  Click me
+</Button>
 
 export default function App() {
   return (
