@@ -243,20 +243,24 @@ const App: React.FC = () => {
 
   const handleProfileImageUpload = (e: React.ChangeEvent<HTMLInputElement>, chatbotId: string) => {
     const file = e.target.files?.[0];
-
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
+    if (!file) return;
+  
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (typeof reader.result === 'string') {
         const updatedChatbots = chatbots.map(chatbot => {
           if (chatbot.id === chatbotId) {
-            return { ...chatbot, profileImage: reader.result as string };
+            return { 
+              ...chatbot, 
+              profileImage: reader.result as string 
+            };
           }
           return chatbot;
         });
         setChatbots(updatedChatbots);
-      };
-      reader.readAsDataURL(file);
-    }
+      }
+    };
+    reader.readAsDataURL(file);
   };
 
   const renderPageContent = () => {
